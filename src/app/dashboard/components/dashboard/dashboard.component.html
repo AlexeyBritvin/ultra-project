@@ -1,5 +1,13 @@
+<div class="search-box mb-4 p-4">
+  <input
+    type="text"
+    class="form-control form-control-lg"
+    placeholder="Start typing to search awesome gifs"
+    [formControl]="search"
+  />
+</div>
 <div class="gifs-wrapper">
-  <ng-container *ngFor="let gif of trending$ | async">
+  <ng-container *ngFor="let gif of gifs$ | async">
     <ultr-giphy-item [source]="gif.source"></ultr-giphy-item>
   </ng-container>
 </div>
