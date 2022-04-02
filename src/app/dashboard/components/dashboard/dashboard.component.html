@@ -1,0 +1,5 @@
+<div class="gifs-wrapper">
+  <ng-container *ngFor="let gif of trending$ | async">
+    <ultr-giphy-item [source]="gif.source"></ultr-giphy-item>
+  </ng-container>
+</div>
