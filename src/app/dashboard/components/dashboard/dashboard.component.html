@@ -6,8 +6,24 @@
     [formControl]="search"
   />
 </div>
-<div class="gifs-wrapper">
-  <ng-container *ngFor="let gif of gifs$ | async">
-    <ultr-giphy-item [source]="gif.source"></ultr-giphy-item>
-  </ng-container>
-</div>
+
+<ng-container *ngIf="gifs$ | async as gifsData">
+  <div class="gifs-wrapper">
+    <ng-container *ngFor="let gif of gifsData.data">
+      <ultr-giphy-item [source]="gif.source"></ultr-giphy-item>
+    </ng-container>
+  </div>
+
+  <div class="pagination p-4">
+    <ng-container *ngIf="page$ | async as page">
+      <ngb-pagination
+        [page]="page"
+        [pageSize]="gifsData.pagination.count"
+        [collectionSize]="gifsData.pagination.total_count"
+        [ellipses]="true"
+        [maxSize]="10"
+        (pageChange)="page$.next($event)"
+      ></ngb-pagination>
+    </ng-container>
+  </div>
+</ng-container>
