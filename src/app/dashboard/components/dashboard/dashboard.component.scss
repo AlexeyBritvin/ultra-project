@@ -1,0 +1,17 @@
+.gifs-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.empty-box {
+  text-align: center;
+
+  &__text {
+    font-size: 1.5rem;
+  }
+}
