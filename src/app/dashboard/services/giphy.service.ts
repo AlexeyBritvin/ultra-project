@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, EMPTY, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Giphy, GiphyResponse } from '../models';
 import { PAGE_SIZE } from './page-size';
@@ -40,7 +40,8 @@ export class GiphyService {
             pagination,
             data: data.map((item) => this.mapGiphyItem(item)),
           };
-        })
+        }),
+        catchError(() => EMPTY)
       );
   }
 
@@ -55,7 +56,8 @@ export class GiphyService {
             pagination,
             data: data.map((item) => this.mapGiphyItem(item)),
           };
-        })
+        }),
+        catchError(() => EMPTY)
       );
   }
 }
