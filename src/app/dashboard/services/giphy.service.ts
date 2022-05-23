@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Environment, IEnvironment } from '../../tokens';
 import { Giphy, GiphyResponse } from '../models';
 import { PAGE_SIZE } from './page-size';
 
@@ -9,13 +9,16 @@ import { PAGE_SIZE } from './page-size';
   providedIn: 'root',
 })
 export class GiphyService {
-  private readonly url = 'https://api.giphy.com/v1/gifs';
+  private readonly url = this.env.giphyApiUrl;
   private params = {
-    api_key: environment.giphyApiKey,
+    api_key: this.env.giphyApiKey,
     limit: PAGE_SIZE,
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(Environment) private env: IEnvironment
+  ) {}
 
   private calcOffset(page: number): number {
     return (page - 1) * PAGE_SIZE;
